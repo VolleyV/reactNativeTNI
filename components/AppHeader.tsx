@@ -1,16 +1,18 @@
 import {StyleSheet, View, Text } from 'react-native'
 import React from 'react'
-import App from '../App'
+
 
 type headerMsg ={
-    title:string;
+    name:string;
+    sub?:string;
 }
-const AppHeader = ({title}:headerMsg):React.JSX.Element => {
+const AppHeader = ({name,sub}:headerMsg):React.JSX.Element => {
   return (
     <View style={styles.header}>
-      <Text>{title} 
+      <Text style={styles.headerText}>{name} 
+        
       </Text>
-      <Text></Text>
+      <Text style={styles.subtitleText}>{sub}</Text>
     </View>
   )
 }
@@ -21,6 +23,8 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
+    
     },
     headerText: {
     fontSize: 20,
@@ -32,5 +36,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     },
     });
+    
 export default AppHeader
 
