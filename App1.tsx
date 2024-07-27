@@ -4,16 +4,24 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import AppFooter from './components/AppFooter';
 import AppHeader from './components/AppHeader';
 import Content from './components/Content';
-import ProfileScreen from './components/ProfileScreen';
 import React from 'react';
 
+export default function App():React.JSX.Element {
+  const fullName="Nopphoom Boonchan";
+  const greet="Hello from App.tsx";
+  const school="Thai-Nichi Institue of Technology";
+  const onClickme=()=>{
+    Alert.alert("Hello","Input your fullname:" + fullName)
+  }
+  return (
+    <View style={styles.container}>
+      <AppHeader name={fullName} sub={greet}/>
+        <Content title={greet} onClickme={onClickme}/>
+      <AppFooter title={school}/>
+      <StatusBar style="auto" />
 
-const App = ():React.JSX.Element => {
-  return(
-    <View>
-      <ProfileScreen/>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -25,5 +33,3 @@ const styles = StyleSheet.create({
   },
 
 });
-
-export default App
