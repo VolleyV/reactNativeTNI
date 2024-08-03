@@ -1,5 +1,6 @@
 import {StyleSheet,Text, View, Image, Button } from "react-native";
 import {styles} from "../styles/style";
+import Login from "./Login";
 import React, { useState } from "react";
 
 const ProfileScreen = (): React.JSX.Element => {
@@ -25,7 +26,7 @@ const ProfileScreen = (): React.JSX.Element => {
         <Button onPress={handleChangeImage} title="Click Image"></Button>
         </View>
       </View>
-      
+      <Login/>
     </View>
   );
 };
