@@ -5,21 +5,22 @@ import React, { Component } from 'react'
 
 type contentMsg ={
   message:string;
-  fullname:string;
+  /* fullname:string; */
+  onButtonClick:() => void;
 }
-const Content = ({message,fullname}:contentMsg):React.JSX.Element => {
-  const [displayFullname,setDisplaFullname] =React.useState('');
-  const handleButtonClick = ()=>{
+const Content = ({message,onButtonClick}:contentMsg):React.JSX.Element => {
+   /* const [displayFullname,setDisplaFullname] =React.useState('');
+ const handleButtonClick = ()=>{
     setDisplaFullname(fullname);
     Alert.alert("Hello",`Fullname has changed to : ${fullname}`)
-  }
+  } */
   return (
     <View style={stylesPratice.content}>
     <Text style={stylesPratice.text}>{message}</Text>
-    <Text style={stylesPratice.text}>{displayFullname}</Text>
+    {/* <Text style={stylesPratice.text}>{displayFullname}</Text> */}
     <Button
           title="Click Me" 
-          onPress={handleButtonClick}
+          onPress={onButtonClick}
           color={"#45CCCA"} 
           
         />
