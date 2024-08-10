@@ -8,13 +8,17 @@ import ProfileScreen from "./components/ProfileScreen";
 import UseEffectExample from "./components/UseEffectExample";
 import { stylesPratice } from "./styles/style";
 import React from "react";
+import FlatListExample from "./components/FlatListExample";
+import FlatListCallBackEnd from "./components/FlatListCallBackEnd";
 
 
 const App = (): React.JSX.Element => {
   return (
     <View>
-      <ProfileScreen/>
+    {/* <ProfileScreen/> */}
     {/*   <UseEffectExample/> */}
+    {/* <FlatListExample/> */}
+    <FlatListCallBackEnd/>
     </View>
   );
 };
