@@ -10,6 +10,7 @@ import { stylesPratice } from "./styles/style";
 import React from "react";
 import FlatListExample from "./components/FlatListExample";
 import FlatListCallBackEnd from "./components/FlatListCallBackEnd";
+import NewsApp from "./components/NewsApp";
 
 
 const App = (): React.JSX.Element => {
@@ -18,7 +19,8 @@ const App = (): React.JSX.Element => {
     {/* <ProfileScreen/> */}
     {/*   <UseEffectExample/> */}
     {/* <FlatListExample/> */}
-    <FlatListCallBackEnd/>
+    {/* <FlatListCallBackEnd/> */}
+    <NewsApp/>
     </View>
   );
 };
