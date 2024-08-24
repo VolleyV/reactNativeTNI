@@ -11,16 +11,23 @@ import React from "react";
 import FlatListExample from "./components/FlatListExample";
 import FlatListCallBackEnd from "./components/FlatListCallBackEnd";
 import NewsApp from "./components/NewsApp";
-
+import AxiosgetData from "./components/AxiosgetData";
+import AxiospostData from "./components/AxiospostData";
+import WeatherLondon from "./components/WeatherLondon";
+import WeatherBangkok from "./components/WeatherBangkok";
 
 const App = (): React.JSX.Element => {
   return (
     <View>
-    {/* <ProfileScreen/> */}
-    {/*   <UseEffectExample/> */}
-    {/* <FlatListExample/> */}
-    {/* <FlatListCallBackEnd/> */}
-    <NewsApp/>
+      {/* <ProfileScreen/> */}
+      {/*   <UseEffectExample/> */}
+      {/* <FlatListExample/> */}
+      {/* <FlatListCallBackEnd/> */}
+      {/*  <NewsApp/> */}
+      {/* <AxiosgetData/> */}
+      {/* <AxiospostData /> */}
+      {/* <WeatherLondon/> */}
+      <WeatherBangkok/>
     </View>
   );
 };
