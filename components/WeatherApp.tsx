@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Alert, Pressable, Modal } from "react-native";
+import { StyleSheet, Text, View, Alert, Pressable, Modal, TouchableOpacity } from "react-native";
 import WeatherLondon from "./WeatherLondon";
 import WeatherBangkok from "./WeatherBangkok";
 import React, { useState } from "react";
@@ -36,10 +36,14 @@ const WeatherApp = (): React.JSX.Element => {
         visible={modalVisible}
         onRequestClose={() => setModalVisible(!modalVisible)}
       >
-         <View>
-            <Pressable 
-            onPress={()=>setModalVisible(!modalVisible)}>             
-            </Pressable>
+         <View style={styles.modalBackground}>
+            <View style={styles.modalContainer}>
+                {renderWeatherComponent()}
+                <TouchableOpacity style={styles.closeButton}
+                onPress={()=> setModalVisible(false)}>
+                    <Text style={styles.closeButtonText}>Close</Text>
+                </TouchableOpacity>
+            </View>
         </View>
       </Modal>
       <View>
