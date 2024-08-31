@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#88b8d2",
   },
   centeredContainer: {
     justifyContent: "center",
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 18,
-    color: "red",
+    color: "#ea8a3f",
   },
   cityName: {
     fontSize: 36,
