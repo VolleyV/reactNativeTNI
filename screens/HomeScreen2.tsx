@@ -1,24 +1,25 @@
 import { View, Text, Button,StyleSheet } from "react-native";
 import React from "react";
-import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons';
+import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'
+
 
 const HomeScreen = ({ navigation,route }: any): React.JSX.Element => {
   const gotoAbout = () => {
     navigation.navigate("About", {
       companyName: "Thai-Nichi Institute of Technology",
-      companyId: 100,
+      companyID: 100,
     });
   };
-
   return (
-    <View style={styles.container}>
-      <MaterialIcon name="home" size={40} color='pink'/>
+    <View>
+      <MaterialIcon name="home" size={40} color={'pink'}/>
       <Text>HomeScreen</Text>
       <Button title="About us" onPress={gotoAbout} />
       <View style={styles.postContainer}>
         <Button
           title="Create post"
-          onPress={() => navigation.navigate("CreatePost")}
+          onPress={() => navigation.navigate("Post")}
         />
         <Text style={styles.postText}>Post:</Text>
         <Text style={styles.postContent}>{route.params?.post}</Text>
@@ -47,7 +48,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   postContent: {
-    color: "blue", // เปลี่ยนสีข้อความที่ถูกส่งกลับมา
+    color: "blue", // เปลี่ยนสีข้อความที่ถูกส่งกลับมา​
+
     fontWeight: "bold",
   },
 });
