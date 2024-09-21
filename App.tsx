@@ -1,7 +1,7 @@
 // Only import react-native-gesture-handler on native platforms
 import "react-native-gesture-handler";
 
-import React from "react";
+import React, { useState } from "react";
 import { HeaderButtonsProvider } from "react-navigation-header-buttons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -11,14 +11,16 @@ import CreatePostScreen from "./screens/CreatePostScreen";
 import MenuScreen from "./screens/MenuScreen";
 import ProductScreen from "./screens/ProductScreen";
 import DetailScreen from "./screens/DetailScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import Toast from "react-native-toast-message";
 
 const HomeStack = createNativeStackNavigator();
 const ProductStack = createNativeStackNavigator();
-
+const LoginStack = createNativeStackNavigator();
 
 const Drawer = createDrawerNavigator();
 
@@ -31,10 +33,7 @@ function HomeStackScreen() {
         headerTitleStyle: { fontWeight: "bold" },
       }}
     >
-      <HomeStack.Screen
-        name="Home"
-        component={HomeScreen}
-      />
+      <HomeStack.Screen name="Home" component={HomeScreen} />
       <HomeStack.Screen
         name="About"
         component={AboutScreen}
@@ -52,39 +51,59 @@ function HomeStackScreen() {
 function ProductStackScreen() {
   return (
     <ProductStack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Products"
       screenOptions={{
         //Global
         headerTitleStyle: { fontWeight: "bold" },
       }}
     >
-      <ProductStack.Screen 
-        name="Products"
-        component={ProductScreen}
-      />
-       <ProductStack.Screen 
-        name="Detail"
-        component={DetailScreen}
-      />
+      <ProductStack.Screen name="Products" component={ProductScreen} />
+      <ProductStack.Screen name="Details" component={DetailScreen} />
     </ProductStack.Navigator>
   );
 }
 
-const App = (): React.JSX.Element => {
+function LoginStackScreen() {
   return (
-    <SafeAreaProvider>
-      <HeaderButtonsProvider stackType="native">
+    <LoginStack.Navigator
+      initialRouteName="Products"
+      screenOptions={{
+        //Global
+        headerTitleStyle: { fontWeight: "bold" },
+      }}
+    >
+      <LoginStack.Screen name="Login" component={LoginScreen} />
+    </LoginStack.Navigator>
+  );
+}
+
+const App = (): React.JSX.Element => {
+  const [isLogin] = useState(false);
+
+  return (
+    <>
+      <SafeAreaProvider>
         <NavigationContainer>
-          <Drawer.Navigator
-            screenOptions={{ headerShown: false }}
-            drawerContent={(props) => <MenuScreen {...props} />}
-          >
-            <Drawer.Screen name="HomeStack" component={HomeStackScreen} />
-            <Drawer.Screen name="ProductStack" component={ProductStackScreen} />
-          </Drawer.Navigator>
+          <HeaderButtonsProvider stackType="native">
+            {isLogin ? (
+              <Drawer.Navigator
+                screenOptions={{ headerShown: false }}
+                drawerContent={(props) => <MenuScreen {...props} />}
+              >
+                <Drawer.Screen name="HomeStack" component={HomeStackScreen} />
+                <Drawer.Screen
+                  name="ProductStack"
+                  component={ProductStackScreen}
+                />
+              </Drawer.Navigator>
+            ) : (
+              <LoginStackScreen />
+            )}
+          </HeaderButtonsProvider>
         </NavigationContainer>
-      </HeaderButtonsProvider>
-    </SafeAreaProvider>
+      </SafeAreaProvider>
+      <Toast />
+    </>
   );
 };
 
