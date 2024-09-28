@@ -12,6 +12,7 @@ import MenuScreen from "./screens/MenuScreen";
 import ProductScreen from "./screens/ProductScreen";
 import DetailScreen from "./screens/DetailScreen";
 import LoginScreen from "./screens/LoginScreen";
+import CameraScreen from "./screens/CameraScreen";
 
 import { NavigationContainer, useFocusEffect } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -20,18 +21,63 @@ import Toast from "react-native-toast-message";
 
 import { Provider } from "react-redux";
 import { Store } from "@reduxjs/toolkit";
-import { useAppSelector,useAppDispatch } from "./redux-toolkit/hooks";
-import { selectAuthState,setIsLoading,setIsLogin, setProfile } from "./auth/auth-slice";
+import { useAppSelector, useAppDispatch } from "./redux-toolkit/hooks";
+import {
+  selectAuthState,
+  setIsLoading,
+  setIsLogin,
+  setProfile,
+} from "./auth/auth-slice";
 import { View } from "react-native-reanimated/lib/typescript/Animated";
 import { ActivityIndicator } from "react-native";
 import { getProfile } from "./services/auth-servise";
-
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const HomeStack = createNativeStackNavigator();
 const ProductStack = createNativeStackNavigator();
 const LoginStack = createNativeStackNavigator();
+const CameraStack = createDrawerNavigator();
 
 const Drawer = createDrawerNavigator();
+
+const Tab = createBottomTabNavigator();
+
+function TabContainer() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName = "";
+          if (route.name === "Home") {
+            iconName = focused
+              ? "ios-information-circle"
+              : "ios-information-circle-outline";
+          } else if (route.name === "Settings") {
+            iconName = focused ? "ios-list" : "ios-list-outline";
+          }
+          // You can return any component that you like here!​
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: "tomato",
+        tabBarInactiveTintColor: "gray",
+        headerShown: false,
+        tabBarActiveBackgroundColor: "lightblue",
+      })}
+    >
+      <Tab.Screen
+        name="HomeStack"
+        component={HomeStackScreen}
+        options={{ tabBarLabel: "หน้าหลัก" }}
+      />
+      <Tab.Screen
+        name="CameraStack"
+        component={CameraStackScreen}
+        options={{ tabBarLabel: "กล้อง" }}
+      />
+    </Tab.Navigator>
+  );
+}
 
 function HomeStackScreen() {
   return (
@@ -85,34 +131,49 @@ function LoginStackScreen() {
     </LoginStack.Navigator>
   );
 }
+function CameraStackScreen() {
+  return (
+    <CameraStack.Navigator
+      initialRouteName="Products"
+      screenOptions={{
+        //Global
+        headerTitleStyle: { fontWeight: "bold" },
+      }}
+    >
+      <CameraStack.Screen
+        name="Camera"
+        component={CameraScreen}
+        options={{ title: "Camera" }}
+      />
+    </CameraStack.Navigator>
+  );
+}
 
 const App = (): React.JSX.Element => {
   // use useAppSelector for state in store
   const { isLogin, isLoading } = useAppSelector(selectAuthState);
   const dispatch = useAppDispatch();
-  const checkLogin = async()=>{
-    try{
+  const checkLogin = async () => {
+    try {
       dispatch(setIsLoading(true));
       const response = await getProfile();
-      if(response?.data.data.user){
+      if (response?.data.data.user) {
         dispatch(setProfile(response.data.data.user));
         dispatch(setIsLogin(true));
-      } else{
+      } else {
         dispatch(setIsLogin(false));
       }
-    } catch(error){
+    } catch (error) {
       console.log(error);
-    } finally{
+    } finally {
       dispatch(setIsLogin(false));
     }
-    
-
-  }
+  };
 
   useFocusEffect(
-    React.useCallback(()=>{
+    React.useCallback(() => {
       checkLogin();
-    },[])
+    }, [])
   );
 
   if (isLoading) {
@@ -130,7 +191,7 @@ const App = (): React.JSX.Element => {
             screenOptions={{ headerShown: false }}
             drawerContent={(props) => <MenuScreen {...props} />}
           >
-            <Drawer.Screen name="HomeStack" component={HomeStackScreen} />
+            <Drawer.Screen name="Home" component={TabContainer} />
             <Drawer.Screen name="ProductStack" component={ProductStackScreen} />
           </Drawer.Navigator>
         ) : (
